@@ -1,9 +1,7 @@
-import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { html, css, LitElement } from 'lit';
 import 'leaflet/dist/leaflet.css';
-import * as L from 'leaflet';
+import L from 'leaflet';
 
-@customElement('my-map')
 export class MyMap extends LitElement {
     static styles = css`
         #map {
@@ -16,9 +14,8 @@ export class MyMap extends LitElement {
         return html`<div id="map"></div>`;
     }
 
-    // Lifecycle method to initialize the map after the component is rendered
     firstUpdated() {
-        const map = L.map(this.shadowRoot!.getElementById('map') as HTMLElement).setView([51.505, -0.09], 13);
+        const map = L.map(this.shadowRoot.getElementById('map')).setView([51.505, -0.09], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -29,3 +26,5 @@ export class MyMap extends LitElement {
             .openPopup();
     }
 }
+
+customElements.define('my-map', MyMap);
